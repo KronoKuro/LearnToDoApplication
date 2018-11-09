@@ -1,0 +1,23 @@
+<div class="register_wrapper">
+  <div class="register_elements">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <input class="form-control" name="Login" formControlName="Login" placeholder="Login" >
+      <input class="form-control" name="Password" type="password" formControlName="Password" placeholder="Password">
+      <input class="form-control" name="confirmedPassword" type="password" formControlName="confirmedPassword" placeholder="ConfirmPassword" >
+      <div class="alert alert-danger"
+           *ngIf="passwordMismatch && registerForm.controls['Password'].touched && registerForm.controls['confirmedPassword'].touched">
+        Пароли не совпадают
+      </div>
+      <input class="form-control" name="Email" formControlName="Email" placeholder="Email"  required pattern="[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}" >
+      <div class="alert alert-danger"
+           *ngIf="registerForm.controls['Email'].invalid && registerForm.controls['Email'].touched">
+        Некорректный email
+      </div>
+
+      <input class="form-control" name="LastName" formControlName="LastName" placeholder="LastName">
+      <input class="form-control" name="FirstName" formControlName="FirstName" placeholder="FirstName">
+      <input class="submit btn" type="submit" name="name" value="Регистрация" />
+    </form>
+   
+  </div>
+</div>
