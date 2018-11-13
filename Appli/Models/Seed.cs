@@ -21,9 +21,10 @@ namespace Appli.Models
                     }
                 );
             };
+            context.SaveChanges();
             if (!context.CourseItems.Any())
             {
-                var course = context.Courses.FirstOrDefault(x => x.Description == "Do you learn C#?");
+                var course = context.Courses.FirstOrDefault(x => x.Description != null);
                 context.CourseItems.AddRange(
                     new CourseItem
                     {
@@ -85,7 +86,7 @@ namespace Appli.Models
                     }
                 );
             }
-
+            context.SaveChanges();
             if (!context.UserCourses.Any())
             {
                 var course = context.Courses.FirstOrDefault(x => x.Description == "Do you learn C#?");

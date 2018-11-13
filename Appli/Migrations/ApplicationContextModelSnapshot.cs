@@ -34,7 +34,7 @@ namespace Appli.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Appli.Models.CourseItem", b =>
@@ -56,7 +56,7 @@ namespace Appli.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CourseItem");
+                    b.ToTable("CourseItems");
                 });
 
             modelBuilder.Entity("Appli.Models.Role", b =>
@@ -87,7 +87,7 @@ namespace Appli.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("UserCourse");
+                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

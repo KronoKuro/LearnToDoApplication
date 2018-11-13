@@ -23,14 +23,28 @@ namespace Appli.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImageData = table.Column<byte[]>(nullable: true),
+                    ImageMimeType = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     NormalizedName = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Code = table.Column<int>(nullable: false)
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,6 +73,28 @@ namespace Appli.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CourseItems",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    IsCompleted = table.Column<bool>(nullable: false),
+                    CourseId = table.Column<string>(nullable: true),
+                    ImageData = table.Column<byte[]>(nullable: true),
+                    ImageMimeType = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CourseItems_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -80,7 +116,7 @@ namespace Appli.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     Login = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    FitstName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     ImageData = table.Column<byte[]>(nullable: true),
                     ImageMimeType = table.Column<string>(nullable: true),
@@ -182,6 +218,31 @@ namespace Appli.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserCourses",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    CourseId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserCourses", x => new { x.UserId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_UserCourses_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserCourses_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -225,6 +286,16 @@ namespace Appli.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseItems_CourseId",
+                table: "CourseItems",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserCourses_CourseId",
+                table: "UserCourses",
+                column: "CourseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -245,7 +316,16 @@ namespace Appli.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CourseItems");
+
+            migrationBuilder.DropTable(
+                name: "UserCourses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appli.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20181108055836_change_name_field_FirstName_IN_User")]
-    partial class change_name_field_FirstName_IN_User
+    [Migration("20181113065143_Initializer")]
+    partial class Initializer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,46 @@ namespace Appli.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Appli.Models.Course", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<byte[]>("ImageData");
+
+                    b.Property<string>("ImageMimeType");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Appli.Models.CourseItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CourseId");
+
+                    b.Property<byte[]>("ImageData");
+
+                    b.Property<string>("ImageMimeType");
+
+                    b.Property<bool>("IsCompleted");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseItems");
+                });
 
             modelBuilder.Entity("Appli.Models.Role", b =>
                 {
@@ -35,6 +75,21 @@ namespace Appli.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Appli.Models.UserCourse", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("CourseId");
+
+                    b.Property<string>("Id");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -226,6 +281,26 @@ namespace Appli.Migrations
                     b.ToTable("User");
 
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("Appli.Models.CourseItem", b =>
+                {
+                    b.HasOne("Appli.Models.Course", "Course")
+                        .WithMany("CourseItems")
+                        .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("Appli.Models.UserCourse", b =>
+                {
+                    b.HasOne("Appli.Models.Course", "Course")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Appli.Models.User", "User")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

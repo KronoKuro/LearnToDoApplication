@@ -19,14 +19,14 @@ namespace Appli.Controllers
             _env = env;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public IActionResult Cabinet()
         {
 
             var userId = User.Identity.getUserId<string>();
             User user = _db.Get(userId);
             return Ok(user);
-        }
+        }*/
         
         [HttpGet("{id}")]
         public IActionResult GetUser(string id)
