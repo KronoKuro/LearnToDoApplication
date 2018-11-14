@@ -9,19 +9,20 @@ import { User } from '../../../models/user.model';
 })
 export class UserInCabinetComponent {
   
-  user: User;
+  usercabinet: User;
 
   constructor(private userServices: UserServices) {
   }
 
   ngOnInit(){
     const id = localStorage.getItem('id');
+    console.log(id);
     this.getUser(id);
   }
 
   getUser(id: string){
      this.userServices.getUser(id).subscribe(resp => {
-        this.user = resp;
+       this.usercabinet = resp;
      });
   }
 

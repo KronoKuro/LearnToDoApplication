@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appli.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     [Route("api/cabinet/user")]
     public class UserController : Controller
     {
         private IHostingEnvironment _env;
         private IUserRepository _db;
-        public UserController(IUserRepository repository, IHostingEnvironment env)
+        private ICourseRepository _courseRepository;
+        public UserController(IUserRepository repository, ICourseRepository courseRepository, IHostingEnvironment env)
         {
             _db = repository;
             _env = env;
+            _courseRepository = courseRepository;
         }
 
         /*[HttpGet]
@@ -33,5 +35,7 @@ namespace Appli.Controllers
         {
             return Ok(_db.Get(id));
         }
+
+        
     }
 }

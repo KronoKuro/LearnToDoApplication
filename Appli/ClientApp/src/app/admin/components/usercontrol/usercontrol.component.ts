@@ -9,7 +9,7 @@ import { User } from '../../../user/models/user.model';
 })
 export class UserControlComponent {
 
-  users: User[];
+  userscontrol: User[];
 
   constructor(private userServices: UserServices) {
 
@@ -21,7 +21,7 @@ export class UserControlComponent {
 
   getUsers() {
     this.userServices.getUsers().subscribe(responce => {
-      this.users = responce;
+      this.userscontrol = responce;
     });
   }
 

@@ -22,6 +22,7 @@ export class AuthentificationComponent implements  OnInit {
 
   login() {
     this.authService.login(this.loginForm.getRawValue()).subscribe(resp => {
+      debugger;
       localStorage.setItem('access_token', resp['access_token']);
       localStorage.setItem('access_token', resp['access_token']);
       localStorage.setItem('user_name', resp['user_name']);

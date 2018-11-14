@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class UserComponent {
 
   constructor(private userServices: UserServices, private  router: Router) { }
-  user: User;
+  userinfo: User;
   isHasUser: boolean;
 
   ngOnInit() {
@@ -24,9 +24,9 @@ export class UserComponent {
   getUser(id: string) {
     debugger;
     this.userServices.getUser(id).subscribe(resp => {
-      this.user = resp;
-      console.log(this.user);
-      if (this.user != null) {
+      this.userinfo = resp;
+      console.log(this.userinfo);
+      if (this.userinfo != null) {
         debugger;
         this.isHasUser = true;
       } else {

@@ -10,7 +10,6 @@ namespace Appli.Models.Infrastructure
 {
     public static class IdentityExtensions
     {
-
         /*
        * можно использовать например так
        *  public ActionResult Contact()

@@ -53,6 +53,7 @@ namespace Appli
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

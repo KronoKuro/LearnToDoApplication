@@ -68,6 +68,7 @@ namespace Appli.Controllers
                 new Claim("name", user.Login),
                 new Claim("id", user.Id.ToString(), ClaimValueTypes.String),
                 new Claim("role", user.Role.Name),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token");
                 //claimsIdentity.AddClaim(user.Role.Name);
