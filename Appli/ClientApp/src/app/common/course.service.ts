@@ -10,9 +10,9 @@ export class CourseServices {
 
   private url: string = 'api/cabinet/course';
 
-  getCourse(id: string)  {
+  getCourse()  {
     debugger;
-    return this.http.get<Course[]>(this.url + '/' +id);
+    return this.http.get<Course[]>(this.url);
   }
 
 

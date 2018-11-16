@@ -51,7 +51,7 @@ namespace Appli.Controllers
                 access_token = encodedJwt,
                 user_name = identity.Name,
                 admin = identity.IsAdmin(),
-                id = identity.getUserId<string>()
+                id = identity?.getUserId<string>()
             };
 
             return Ok(response);

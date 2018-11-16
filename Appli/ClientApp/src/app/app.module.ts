@@ -29,7 +29,7 @@ import { CourseServices } from './common/course.service';
 
 
 @NgModule({
-declarations: [
+  declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
@@ -56,14 +56,16 @@ declarations: [
       { path: 'register', component: RegistrationComponent },
       { path: 'counter', component: CounterComponent, canActivate: [AuthGuard], data: { expectedRole: 'User' } },
       { path: 'fetch-data', component: FetchDataComponent },
-      
+
       //Пользователь
+      
       { path: 'cabinet', redirectTo: "cabinet/user", pathMatch: 'full' },
       { path: 'user', redirectTo: "cabinet/user", pathMatch: 'full' },
+      { path: 'course', component: CourseComponent, },
       {
         path: 'cabinet', component: CabinetComponent, canActivate: [AuthGuard], data: { expectedRole: 'User' },
         children: [
-          { path: "user", component: UserInCabinetComponent,  },
+          { path: "user", component: UserInCabinetComponent, },
           { path: 'course', component: CourseComponent, },
           { path: "", component: UserInCabinetComponent, }
         ]

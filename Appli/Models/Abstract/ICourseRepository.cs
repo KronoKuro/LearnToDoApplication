@@ -9,7 +9,7 @@ namespace Appli.Models.Abstract
     public interface ICourseRepository
     {
         IEnumerable<Course> GetAll();
-        IEnumerable GetUserCourses(string id);
+        IEnumerable<Course> GetUserCourses(string id);
         Course Get(string id);
         void Create(Course item);
         void Update(Course item);

@@ -49,7 +49,7 @@ namespace Appli.Models.Repository
             return db.Courses;
         }
 
-        public IEnumerable GetUserCourses(string userId)
+        public IEnumerable<Course> GetUserCourses(string userId)
         {
             
             var userCourses = db.Users.Include(x => x.UserCourses).ThenInclude(c => c.Course).FirstOrDefault(x => x.Id == userId);
@@ -57,8 +57,8 @@ namespace Appli.Models.Repository
                  .ThenInclude(c => c.Course)
                  .Select(x => x.UserCourses
                  .Select(c => c.Course));*/
-            var course = userCourses.UserCourses.Select(x => x.Course);
-            return course;
+            List<Course> courses = userCourses.UserCourses.Select(x => x.Course).ToList();
+            return courses.ToList();
         }
 
         public void Update(Course item)

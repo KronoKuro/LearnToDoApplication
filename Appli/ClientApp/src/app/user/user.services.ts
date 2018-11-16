@@ -11,8 +11,8 @@ export class UserServices {
 
   private url: string = 'api/cabinet/user';
 
-  getUser(id: string) {
-    return this.http.get<User>(this.url + '/' + id);
+  getUser() {
+    return this.http.get<User>(this.url);
   }
 
   getUsers() {

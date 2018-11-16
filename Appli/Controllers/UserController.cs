@@ -1,6 +1,7 @@
 ﻿using Appli.Models;
 using Appli.Models.Abstract;
 using Appli.Models.Infrastructure;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,20 +21,12 @@ namespace Appli.Controllers
             _env = env;
             _courseRepository = courseRepository;
         }
-
-        /*[HttpGet]
-        public IActionResult Cabinet()
-        {
-
-            var userId = User.Identity.getUserId<string>();
-            User user = _db.Get(userId);
-            return Ok(user);
-        }*/
         
-        [HttpGet("{id}")]
-        public IActionResult GetUser(string id)
+        [HttpGet]
+        public IActionResult GetUser()
         {
-            return Ok(_db.Get(id));
+            var userId = User.Identity.GetUserId();
+            return Ok(_db.Get(userId));
         }
 
         

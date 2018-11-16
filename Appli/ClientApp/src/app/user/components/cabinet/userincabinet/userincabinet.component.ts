@@ -15,13 +15,11 @@ export class UserInCabinetComponent {
   }
 
   ngOnInit(){
-    const id = localStorage.getItem('id');
-    console.log(id);
-    this.getUser(id);
+    this.getUser();
   }
 
-  getUser(id: string){
-     this.userServices.getUser(id).subscribe(resp => {
+  getUser(){
+     this.userServices.getUser().subscribe(resp => {
        this.usercabinet = resp;
      });
   }

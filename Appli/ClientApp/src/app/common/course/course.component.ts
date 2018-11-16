@@ -20,10 +20,10 @@ export class CourseComponent {
   }
 
   getCourse() {
-    var id = localStorage.getItem('id');
-    this.courseServices.getCourse(id).subscribe(resp => {
+    debugger;
+    this.courseServices.getCourse().subscribe(resp => {
       this.courses = resp;
-      console.log(this.courses);
+      console.log('Это курс ' + this.courses);
     });
   }
 }

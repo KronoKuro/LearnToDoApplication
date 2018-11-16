@@ -17,17 +17,14 @@ export class UserComponent {
   isHasUser: boolean;
 
   ngOnInit() {
-    const id = localStorage.getItem('id');
-    this.getUser(id);
+    this.getUser();
   }
 
-  getUser(id: string) {
-    debugger;
-    this.userServices.getUser(id).subscribe(resp => {
+  getUser() {
+    this.userServices.getUser().subscribe(resp => {
       this.userinfo = resp;
       console.log(this.userinfo);
       if (this.userinfo != null) {
-        debugger;
         this.isHasUser = true;
       } else {
         this.isHasUser = false;
