@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../common/course/course.model';
 
@@ -10,10 +10,13 @@ export class CourseServices {
 
   private url: string = 'api/cabinet/course';
 
-  getCourse() {
+  getCourse()  {
     debugger;
     return this.http.get<any>(this.url);
   }
 
+
 }
 
+*/
+//# sourceMappingURL=course.service.js.map

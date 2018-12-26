@@ -85,5 +85,29 @@ namespace Appli.Models.Infrastructure
             }
             return roleIsAdmin;
         }
+
+        public static string GetLifeTime(this IIdentity identity)
+        {
+            if (identity == null)
+            {
+                throw new ArgumentNullException("identity");
+            }
+            var ci = identity as ClaimsIdentity;
+            string lifeTime = "";
+            if (ci != null)
+            {
+                var date = ci.FindFirst("lifetime");
+                
+                if (date != null)
+                {
+                    lifeTime = date.Value;
+                }
+                else
+                {
+                    lifeTime = "";
+                }
+            }
+            return lifeTime;
+        }
     }
 }

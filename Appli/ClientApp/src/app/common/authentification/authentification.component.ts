@@ -22,19 +22,17 @@ export class AuthentificationComponent implements  OnInit {
 
   login() {
     this.authService.login(this.loginForm.getRawValue()).subscribe(resp => {
-      debugger;
-      localStorage.setItem('access_token', resp['access_token']);
       localStorage.setItem('access_token', resp['access_token']);
       localStorage.setItem('user_name', resp['user_name']);
       localStorage.setItem('admin', resp['admin']);
+      localStorage.setItem('lifeteme', resp['life_time']);
       localStorage.setItem('id', resp['id']);
       console.log(resp['access_token']);
       console.log(resp['id']);
-      debugger;
-      if (resp['admin'] != true) {
-        this.router.navigate(['user']);
-      } else {
+      if (resp['admin'] == true) {
         this.router.navigate(['admin']);
+      } else {
+        this.router.navigate(['cabinet/user']);
       }
     },
     error => {

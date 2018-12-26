@@ -59,9 +59,8 @@ import { CourseServices } from './common/course.service';
 
       //Пользователь
       
-      { path: 'cabinet', redirectTo: "cabinet/user", pathMatch: 'full' },
-      { path: 'user', redirectTo: "cabinet/user", pathMatch: 'full' },
-      { path: 'course', component: CourseComponent, },
+     
+      //{ path: 'course', component: CourseComponent, },
       {
         path: 'cabinet', component: CabinetComponent, canActivate: [AuthGuard], data: { expectedRole: 'User' },
         children: [
@@ -70,6 +69,8 @@ import { CourseServices } from './common/course.service';
           { path: "", component: UserInCabinetComponent, }
         ]
       },
+      { path: 'cabinet', redirectTo: "cabinet/user", pathMatch: 'full', canActivate: [AuthGuard], data: { expectedRole: 'User' } },
+      { path: 'user', redirectTo: "cabinet/user", pathMatch: 'full', canActivate: [AuthGuard], data: { expectedRole: 'User' } },
       //Админ
       { path: 'admin', redirectTo: "admin/overview", pathMatch: 'full' },
       {

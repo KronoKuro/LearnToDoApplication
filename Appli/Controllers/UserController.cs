@@ -1,7 +1,6 @@
 ﻿using Appli.Models;
 using Appli.Models.Abstract;
 using Appli.Models.Infrastructure;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +24,17 @@ namespace Appli.Controllers
         [HttpGet]
         public IActionResult GetUser()
         {
-            var userId = User.Identity.GetUserId();
+            var userId = User.Identity.getUserId<string>();
             return Ok(_db.Get(userId));
         }
 
-        
+        [HttpGet("GetCourseUser/{userId}")]
+        public IActionResult GetCourseByUserId(string id)
+        {
+            var courses = _courseRepository.GetUserCourses(id);
+            return Ok(courses);
+        }
+
+
     }
 }

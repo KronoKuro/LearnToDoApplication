@@ -34,7 +34,7 @@ namespace Appli.Controllers
 
             var identity = GetIdentity(model.Login, model.Password);
 
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
             var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
@@ -51,7 +51,8 @@ namespace Appli.Controllers
                 access_token = encodedJwt,
                 user_name = identity.Name,
                 admin = identity.IsAdmin(),
-                id = identity?.getUserId<string>()
+                id = identity?.getUserId<string>(),
+                life_time = identity.GetLifeTime()
             };
 
             return Ok(response);
@@ -61,13 +62,15 @@ namespace Appli.Controllers
         {
             password = Crypt.Encript(password, login.ToLower());
             User user = _db.Users.Include(x => x.Role).FirstOrDefault(u => u.Login == login && u.Password == password);
-
+            var now = DateTime.UtcNow;
+            var lifetime = now;
             if (user != null)
             {
                 var claims = new List<Claim> {
                 new Claim("name", user.Login),
                 new Claim("id", user.Id.ToString(), ClaimValueTypes.String),
                 new Claim("role", user.Role.Name),
+                new Claim("lifetime",  lifetime.ToString("yyyyMMddhh")),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token");
@@ -80,6 +83,7 @@ namespace Appli.Controllers
             }
 
         }
+        
 
         [Authorize]
         [HttpGet("api/checktoken")]

@@ -49,16 +49,20 @@ namespace Appli.Models.Repository
             return db.Courses;
         }
 
-        public IEnumerable<Course> GetUserCourses(string userId)
+        public IEnumerable<UserCourseModel> GetUserCourses(string userId)
         {
+            var user = db.Users.Include(x => x.UserCourses).ThenInclude(c => c.Course).FirstOrDefault(x => x.Id == userId);
+            List<UserCourseModel> userCourses = user.UserCourses.Select(x => new UserCourseModel
+            {
+                Id = x.UserId,
+                CourseId = x.CourseId,
+                Title = x.Course.Title,
+                Description = x.Course.Description
+               
+            }).ToList();
+           
+            return userCourses;
             
-            var userCourses = db.Users.Include(x => x.UserCourses).ThenInclude(c => c.Course).FirstOrDefault(x => x.Id == userId);
-            /* var courses = db.Users.Include(x => x.UserCourses)
-                 .ThenInclude(c => c.Course)
-                 .Select(x => x.UserCourses
-                 .Select(c => c.Course));*/
-            List<Course> courses = userCourses.UserCourses.Select(x => x.Course).ToList();
-            return courses.ToList();
         }
 
         public void Update(Course item)

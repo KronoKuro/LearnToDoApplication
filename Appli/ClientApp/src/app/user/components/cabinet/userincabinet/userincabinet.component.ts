@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { UserServices } from '../../../user.services';
 import { User } from '../../../models/user.model';
+import { Observable } from 'rxjs';
+import { CourseServices } from '../../../../common/course.service';
+import { Course } from '../../../../common/course/course.model';
 
 
 @Component({
@@ -8,20 +11,18 @@ import { User } from '../../../models/user.model';
   templateUrl: './userincabinet.component.html',
 })
 export class UserInCabinetComponent {
-  
-  usercabinet: User;
 
-  constructor(private userServices: UserServices) {
+  usercabinet$: Observable<User>;
+  
+  constructor(private userServices: UserServices, private courseServices: CourseServices) {
   }
 
   ngOnInit(){
     this.getUser();
   }
 
-  getUser(){
-     this.userServices.getUser().subscribe(resp => {
-       this.usercabinet = resp;
-     });
+  getUser() {
+    this.usercabinet$ = this.userServices.getUser();
   }
 
 }

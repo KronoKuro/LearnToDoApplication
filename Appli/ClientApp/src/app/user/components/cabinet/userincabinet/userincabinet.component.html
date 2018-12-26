@@ -1,7 +1,7 @@
 
-<div class="row">
-<div class="col-sm-12 body-content">
-<div class="userItem">
+<div class="row" *ngIf="usercabinet$ | async as usercabinet">
+  <div class="col-sm-12 body-content">
+    <div class="userItem">
       <div class="user_name">
         <p>Логин {{usercabinet.login}}</p>
         <p>пароль {{usercabinet.password}}</p>
@@ -11,4 +11,5 @@
     </div>
   </div>
 </div>
+<app-course></app-course>
 

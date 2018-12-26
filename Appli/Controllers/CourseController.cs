@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Appli.Models;
 using Appli.Models.Abstract;
 using Appli.Models.Infrastructure;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appli.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/cabinet/course")]
     public class CourseController : Controller
     {
@@ -35,9 +35,17 @@ namespace Appli.Controllers
         [HttpGet]
         public IActionResult Cabinet()
         {
-            var userId = User.Identity.GetUserId();
-            var courses = _courseRepository.GetUserCourses(userId);
-            return Ok(courses);
+            var userId = User.Identity.getUserId<string>();
+            IEnumerable<UserCourseModel> courses = null;
+            if (userId != null)
+            {
+                courses = _courseRepository.GetUserCourses(userId);
+            }
+            else
+            {
+                courses = null;
+            }
+             return Ok(courses.ToList());
         }
     }
 }
